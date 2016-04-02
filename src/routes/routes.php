@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/integrator/test', function() {
+    return "Integrator is working!";
+});
+
 Route::group(['middleware' => ['web']], function () {
     Route::get('/integrator/gates/{token}', 'Krustnic\Integrator\IntegratorController@gates');
 });
