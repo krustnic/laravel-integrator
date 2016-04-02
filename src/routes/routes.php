@@ -1,7 +1,9 @@
 <?php
 
-Route::get('/integrator/gates'       , "IntegratorController@gates");
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/integrator/gates/{token}', 'Krustnic\Integrator\IntegratorController@gates');
+});
 
-Route::group(['middleware' => ['integrator.auth']], function () {
-    Route::get('/integrator/api/getToken', "IntegratorController@getToken");
+Route::group(['middleware' => ['Krustnic\Integrator\IntegratorAuth']], function () {
+    Route::post('/integrator/api/getToken', 'Krustnic\Integrator\IntegratorController@getToken');
 });

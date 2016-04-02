@@ -11,7 +11,7 @@ class IntegratorServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected $defer = false;
 
     /**
      * Register the service provider.
@@ -22,9 +22,11 @@ class IntegratorServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/config/config.php', 'integrator');
 
+        /*
         $this->app['integrator'] = $this->app->share(function ($app) {
             return new Integrator();
         });
+        */
 
         $this->app->bind('Integrator', function ($app) {
             return new Integrator();
@@ -42,6 +44,8 @@ class IntegratorServiceProvider extends ServiceProvider
             require __DIR__.'/routes/routes.php';
         }
 
+        $this->loadViewsFrom(__DIR__.'/views', 'integrator');
+
         $this->publishes([
             __DIR__.'/config/config.php' => config_path('integrator.php')
         ], 'config');
@@ -49,6 +53,11 @@ class IntegratorServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/migrations/' => base_path('/database/migrations')
         ], 'migrations');
+
+        $this->publishes([
+            __DIR__.'/views' => base_path('resources/views/vendor/integrator'),
+        ]);
+
     }
 
     public function provides()
