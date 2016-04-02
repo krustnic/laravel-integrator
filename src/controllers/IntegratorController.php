@@ -58,7 +58,6 @@ class IntegratorController extends Controller
         $username = $data["data"]["username"];
 
         // Create redirect path
-        //$url   = config( "integrator.url" );
         $location = isset( $data["data"]["url"] ) ? $data["data"]["url"] : "/";
         $location = substr( $location, 0, 1 ) == '/'? $location : "/".$location;
         //

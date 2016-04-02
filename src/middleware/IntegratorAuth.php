@@ -22,20 +22,6 @@ class IntegratorAuth
         if ( !$auth || $auth["auth"]["secret"] != config("integrator.secret") ) return (new Response([], 401));
 
         return $next($request);
-
-        /*
-        if ( !Auth::onceBasic() ) {
-            $user = Auth::user();
-
-            if ( $user->email == config("integrator.username") ) {
-                return $next($request);
-            }
-
-            return (new Response([], 401));
-        }
-
-        return Auth::onceBasic();
-        */
     }
 
     private function getAuthParameters() {
